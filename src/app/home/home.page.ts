@@ -60,9 +60,6 @@ export class HomePage {
   }
 
   calculate() {
-    // this.result = unit(this.value, this.selectedOptionInitial).toNumber(
-    //   this.selectedOptionFinal
-    // );
     if (this.selectedUnitType === 'temperatura') {
       this.result = this.convertTemperature(
         this.value,
@@ -75,6 +72,7 @@ export class HomePage {
       );
     }
   }
+
   convertTemperature(value: number, fromUnit: string, toUnit: string): number {
     if (fromUnit === 'c' && toUnit === 'f') {
       return (value * 9) / 5 + 32;
