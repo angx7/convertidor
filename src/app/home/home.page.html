@@ -1,20 +1,73 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
+    <ion-title> Conversor de unidades </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
+      <ion-title size="large">Conversor de unidades</ion-title>
     </ion-toolbar>
   </ion-header>
 
   <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+    <strong>{{title}}</strong><br /><br />
+    <ion-item>
+      <ion-select
+        label="Tipo de Unidad"
+        label-placement="floating"
+        [(ngModel)]="selectedUnitType"
+        (ionChange)="onUnitTypeChange()"
+      >
+        <ion-select-option value="longitud">Longitud</ion-select-option>
+        <ion-select-option value="masa">Masa</ion-select-option>
+        <ion-select-option value="temperatura">Temperatura</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-input
+        [(ngModel)]="value"
+        type="number"
+        placeholder="Enter value"
+      ></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-select
+        label="Unidad De"
+        label-placement="floating"
+        [(ngModel)]="selectedOptionInitial"
+      >
+        <ion-select-option
+          *ngFor="let option of unitOptions"
+          [value]="option.value"
+          >{{ option.label }}</ion-select-option
+        >
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-select
+        label="A Unidad"
+        label-placement="floating"
+        [(ngModel)]="selectedOptionFinal"
+      >
+        <ion-select-option
+          *ngFor="let option of unitOptions"
+          [value]="option.value"
+          >{{ option.label }}</ion-select-option
+        >
+      </ion-select>
+    </ion-item>
+    <br />
+    <ion-button
+      (click)="calculate()"
+      [disabled]="value===null || !selectedOptionInitial || !selectedOptionFinal"
+    >
+      Calculate </ion-button
+    ><br /><br />
+    <ion-label>Resultado {{result}} {{selectedOptionFinal}}</ion-label>
   </div>
+  <div id="resultado"></div>
 </ion-content>
